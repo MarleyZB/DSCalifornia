@@ -45,5 +45,5 @@ if st.button('Estimate Price'):
             'ocean_proximity': [ocean_proximity]
         })
     result = predict(data)
-    st.text(result[0])
+    st.text('$' + str(result[0]))
     st.snow()

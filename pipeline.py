@@ -32,13 +32,15 @@ def num_pipeline():
 def fetch_pipeline():
     housing = pd.read_csv("datasets/housing/housing.csv")
     housing = housing.drop("median_house_value", axis=1)
-    housing_num = num_pipeline.fit_transform(housing_num)  #set de vectores característicos y preprocesados
+    housing_num = housing.drop("ocean_proximity", axis=1)
 
     num_attribs = list(housing_num)
     cat_attribs = ["ocean_proximity"]
+    
+    num_transformer = num_pipeline()
 
     full_pipeline = ColumnTransformer([
-        ("num", num_pipeline, num_attribs),
+        ("num", num_transformer, num_attribs),
         ("cat", OneHotEncoder(), cat_attribs),
     ])
     full_pipeline.fit_transform(housing)
